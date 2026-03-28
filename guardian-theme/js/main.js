@@ -40,11 +40,70 @@
     }
 
     // =========================================================
+    // SEARCH PANEL TOGGLE
+    // =========================================================
+    function initSearch() {
+        var searchToggle = document.querySelector( '.search-toggle' );
+        var searchPanel  = document.getElementById( 'site-search-panel' );
+        var searchInput  = document.getElementById( 'site-search-input' );
+        var searchClose  = document.querySelector( '.site-search-close' );
+        if ( ! searchToggle || ! searchPanel ) return;
+
+        function openSearch() {
+            searchPanel.classList.add( 'search-open' );
+            searchPanel.setAttribute( 'aria-hidden', 'false' );
+            searchToggle.setAttribute( 'aria-expanded', 'true' );
+            searchToggle.setAttribute( 'aria-label', 'Close search' );
+            if ( searchInput ) {
+                setTimeout( function () { searchInput.focus(); }, 50 );
+            }
+            updateStickyTop();
+        }
+
+        function closeSearch() {
+            searchPanel.classList.remove( 'search-open' );
+            searchPanel.setAttribute( 'aria-hidden', 'true' );
+            searchToggle.setAttribute( 'aria-expanded', 'false' );
+            searchToggle.setAttribute( 'aria-label', 'Open search' );
+            updateStickyTop();
+        }
+
+        searchToggle.addEventListener( 'click', function () {
+            if ( searchPanel.classList.contains( 'search-open' ) ) {
+                closeSearch();
+            } else {
+                openSearch();
+            }
+        } );
+
+        if ( searchClose ) {
+            searchClose.addEventListener( 'click', closeSearch );
+        }
+
+        // Close on Escape key
+        document.addEventListener( 'keydown', function ( e ) {
+            if ( e.key === 'Escape' && searchPanel.classList.contains( 'search-open' ) ) {
+                closeSearch();
+                searchToggle.focus();
+            }
+        } );
+
+        // Close when clicking outside the header wrapper
+        document.addEventListener( 'click', function ( e ) {
+            if ( searchPanel.classList.contains( 'search-open' ) &&
+                 ! e.target.closest( '.site-header-wrapper' ) ) {
+                closeSearch();
+            }
+        } );
+    }
+
+    // =========================================================
     // INIT
     // =========================================================
     document.addEventListener( 'DOMContentLoaded', function () {
         updateStickyTop();
         initHamburger();
+        initSearch();
     } );
 
     // Re-measure after all images/fonts load (header height may change)

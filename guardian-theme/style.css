@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 2.5.0
+Version: 2.6.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -1044,6 +1044,119 @@ ul, ol { list-style: none; }
 
 /* Keep old .nav-sticky class harmless (JS still adds it but wrapper handles sticking) */
 .nav-sticky { box-shadow: none; }
+
+/* ============================================================
+   NAV ACTIONS (search toggle + hamburger grouped on the right)
+   ============================================================ */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* ── Search toggle button ── */
+.search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.search-toggle:hover { background: rgba(255,255,255,0.12); }
+
+.search-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--neutral-100);
+}
+
+/* Active state when panel is open */
+.search-toggle[aria-expanded="true"] {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ── Search panel — slides down from nav bar ── */
+.site-search-panel {
+    background: var(--brand-300);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+}
+
+.site-search-panel.search-open {
+    max-height: 80px;
+    padding: 10px 0;
+}
+
+.site-search-form {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--neutral-100);
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 640px;
+}
+
+.site-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px 14px;
+    font-family: var(--font-sans);
+    font-size: var(--text-sans-m);
+    color: var(--neutral-7);
+    background: transparent;
+    min-width: 0;
+}
+
+.site-search-input::placeholder { color: var(--neutral-60); }
+
+.site-search-submit {
+    background: var(--brand-400);
+    border: none;
+    cursor: pointer;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.site-search-submit:hover { background: var(--brand-300); }
+
+.site-search-submit svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--neutral-100);
+}
+
+.site-search-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.site-search-close:hover { background: var(--neutral-93); }
+
+.site-search-close svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--neutral-46);
+}
 
 /* ============================================================
    HAMBURGER BUTTON — hidden on desktop, shown on mobile/tablet

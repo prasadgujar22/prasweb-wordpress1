@@ -46,15 +46,52 @@
                 ?>
             </nav>
 
-            <!-- Hamburger: visible only on mobile/tablet -->
-            <button class="menu-toggle"
-                    aria-controls="primary-navigation"
-                    aria-expanded="false"
-                    aria-label="<?php esc_attr_e( 'Open menu', 'guardian-news' ); ?>">
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-            </button>
+            <div class="nav-actions">
+                <!-- Search toggle -->
+                <button class="search-toggle"
+                        aria-controls="site-search-panel"
+                        aria-expanded="false"
+                        aria-label="<?php esc_attr_e( 'Open search', 'guardian-news' ); ?>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M21.71 20.29l-5.01-5.01A8 8 0 1 0 15.29 16.7l5.01 5.01a1 1 0 0 0 1.41-1.42zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+                    </svg>
+                </button>
+
+                <!-- Hamburger: visible only on mobile/tablet -->
+                <button class="menu-toggle"
+                        aria-controls="primary-navigation"
+                        aria-expanded="false"
+                        aria-label="<?php esc_attr_e( 'Open menu', 'guardian-news' ); ?>">
+                    <span class="menu-toggle-bar"></span>
+                    <span class="menu-toggle-bar"></span>
+                    <span class="menu-toggle-bar"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SEARCH PANEL ===== -->
+    <div class="site-search-panel" id="site-search-panel" role="search" aria-hidden="true">
+        <div class="container">
+            <form class="site-search-form" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                <input type="search"
+                       class="site-search-input"
+                       id="site-search-input"
+                       name="s"
+                       placeholder="<?php esc_attr_e( 'Search stories…', 'guardian-news' ); ?>"
+                       value="<?php echo esc_attr( get_search_query() ); ?>"
+                       autocomplete="off">
+                <button type="submit" class="site-search-submit" aria-label="<?php esc_attr_e( 'Submit search', 'guardian-news' ); ?>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M21.71 20.29l-5.01-5.01A8 8 0 1 0 15.29 16.7l5.01 5.01a1 1 0 0 0 1.41-1.42zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+                    </svg>
+                </button>
+                <button type="button" class="site-search-close" aria-label="<?php esc_attr_e( 'Close search', 'guardian-news' ); ?>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
 
