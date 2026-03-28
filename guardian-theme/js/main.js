@@ -125,10 +125,33 @@
         initStickySidebar();
     } );
 
-    // Init after DOM ready then again after images load
+    // =========================================================
+    // HAMBURGER MENU TOGGLE
+    // =========================================================
     document.addEventListener( 'DOMContentLoaded', function () {
         calcHeaderHeight();
         setTimeout( initStickySidebar, 120 );
+
+        var toggle  = document.querySelector( '.menu-toggle' );
+        var navMenu = document.getElementById( 'primary-navigation' );
+
+        if ( toggle && navMenu ) {
+            toggle.addEventListener( 'click', function () {
+                var isOpen = navMenu.classList.toggle( 'nav-open' );
+                toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+                toggle.setAttribute( 'aria-label',
+                    isOpen ? 'Close menu' : 'Open menu' );
+            } );
+
+            // Close menu when a link is tapped
+            navMenu.querySelectorAll( 'a' ).forEach( function ( link ) {
+                link.addEventListener( 'click', function () {
+                    navMenu.classList.remove( 'nav-open' );
+                    toggle.setAttribute( 'aria-expanded', 'false' );
+                    toggle.setAttribute( 'aria-label', 'Open menu' );
+                } );
+            } );
+        }
     } );
 
     window.addEventListener( 'load', initStickySidebar );

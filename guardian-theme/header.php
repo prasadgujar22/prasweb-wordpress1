@@ -43,6 +43,16 @@
             ] );
             ?>
         </nav>
+
+        <!-- Hamburger: visible only on mobile/tablet -->
+        <button class="menu-toggle"
+                aria-controls="primary-navigation"
+                aria-expanded="false"
+                aria-label="<?php esc_attr_e( 'Open menu', 'guardian-news' ); ?>">
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+        </button>
     </div>
 </div>
 

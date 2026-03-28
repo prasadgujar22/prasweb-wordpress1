@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 2.2.0
+Version: 2.3.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -312,7 +312,7 @@ ul, ol { list-style: none; }
 }
 
 .custom-logo {
-    max-height: 78px;  /* 52px × 1.5 */
+    max-height: 98px;  /* 78px × 1.25 */
     width: auto;
     display: block;
 }
@@ -1038,15 +1038,94 @@ ul, ol { list-style: none; }
 }
 
 /* ============================================================
+   HAMBURGER BUTTON — hidden on desktop, shown on mobile/tablet
+   ============================================================ */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: var(--color-cta);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    margin: 6px 0 6px 10px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+.menu-toggle:hover { background: var(--brand-alt-300); }
+
+.menu-toggle-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--neutral-0);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Animate to X when open */
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
    MOBILE NAV
    ============================================================ */
 @media (max-width: 900px) {
+
+    /* Show hamburger on mobile/tablet */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .site-nav-wrapper .container {
+        flex-wrap: wrap;
+        align-items: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    /* Nav collapsed by default, slides open */
     .primary-navigation {
-        overflow-x: auto;
+        width: 100%;
+        order: 3;              /* pushes below the button row */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.28s ease;
+    }
+
+    .primary-navigation.nav-open {
+        max-height: 400px;
+    }
+
+    .primary-navigation ul {
+        flex-direction: column;
+        width: 100%;
+        padding-bottom: 6px;
     }
 
     .primary-navigation ul li a {
-        padding: 10px 10px;
+        padding: 11px 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        font-size: var(--text-sans-m);
+    }
+
+    /* Remove active underline on mobile (no room) */
+    .primary-navigation ul li.current-menu-item > a::after,
+    .primary-navigation ul li.current_page_item > a::after {
+        display: none;
     }
 
     .sidebar {
