@@ -12,25 +12,6 @@
 
 <a class="screen-reader-text" href="#main-content"><?php esc_html_e( 'Skip to content', 'guardian-news' ); ?></a>
 
-<!-- ===== TOP BAR ===== -->
-<div class="site-topbar" role="banner">
-    <div class="container">
-        <div class="topbar-support">
-            <a href="<?php echo esc_url( get_theme_mod( 'guardian_support_url', '#' ) ); ?>">
-                <?php esc_html_e( 'Support us', 'guardian-news' ); ?>
-            </a>
-        </div>
-        <div class="topbar-signin">
-            <a href="<?php echo esc_url( wp_login_url() ); ?>">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3zm9 11v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1h2z"/>
-                </svg>
-                <?php esc_html_e( 'Sign in', 'guardian-news' ); ?>
-            </a>
-        </div>
-    </div>
-</div>
-
 <!-- ===== SITE HEADER ===== -->
 <header class="site-header">
     <div class="container">
@@ -45,10 +26,6 @@
                 </div>
             <?php endif; ?>
         </div>
-
-        <span class="edition-selector" aria-label="<?php esc_attr_e( 'Select edition', 'guardian-news' ); ?>">
-            <?php echo esc_html( get_theme_mod( 'guardian_edition_label', 'Int' ) ); ?>
-        </span>
     </div>
 </header>
 
@@ -66,10 +43,6 @@
             ] );
             ?>
         </nav>
-
-        <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle menu', 'guardian-news' ); ?>">
-            <span></span>
-        </button>
     </div>
 </div>
 

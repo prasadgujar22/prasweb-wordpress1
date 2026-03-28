@@ -4,18 +4,6 @@
 ( function () {
     'use strict';
 
-    // ===== Mobile menu toggle =====
-    var menuToggle = document.querySelector( '.menu-toggle' );
-    var primaryNav = document.getElementById( 'primary-navigation' );
-
-    if ( menuToggle && primaryNav ) {
-        menuToggle.addEventListener( 'click', function () {
-            var expanded = menuToggle.getAttribute( 'aria-expanded' ) === 'true';
-            menuToggle.setAttribute( 'aria-expanded', String( ! expanded ) );
-            primaryNav.classList.toggle( 'nav-open' );
-        } );
-    }
-
     // ===== Sticky header on scroll =====
     var siteTopbar    = document.querySelector( '.site-topbar' );
     var siteHeader    = document.querySelector( '.site-header' );
