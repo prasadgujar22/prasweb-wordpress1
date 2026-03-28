@@ -12,65 +12,69 @@
 
 <a class="screen-reader-text" href="#main-content"><?php esc_html_e( 'Skip to content', 'guardian-news' ); ?></a>
 
-<!-- ===== SITE HEADER ===== -->
-<header class="site-header">
-    <div class="container">
-        <div class="site-branding">
-            <?php if ( has_custom_logo() ) : ?>
-                <?php the_custom_logo(); ?>
-            <?php else : ?>
-                <div class="site-title">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-                        <?php bloginfo( 'name' ); ?>
-                    </a>
-                </div>
-            <?php endif; ?>
+<!-- ===== STICKY HEADER WRAPPER (logo + nav together) ===== -->
+<div class="site-header-wrapper">
+
+    <header class="site-header">
+        <div class="container">
+            <div class="site-branding">
+                <?php if ( has_custom_logo() ) : ?>
+                    <?php the_custom_logo(); ?>
+                <?php else : ?>
+                    <div class="site-title">
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+                            <?php bloginfo( 'name' ); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== PRIMARY NAVIGATION ===== -->
+    <div class="site-nav-wrapper" role="navigation" aria-label="<?php esc_attr_e( 'Primary menu', 'guardian-news' ); ?>">
+        <div class="container">
+            <nav class="primary-navigation" id="primary-navigation">
+                <?php
+                wp_nav_menu( [
+                    'theme_location' => 'primary',
+                    'menu_class'     => '',
+                    'container'      => false,
+                    'walker'         => new Guardian_Nav_Walker(),
+                    'fallback_cb'    => 'guardian_fallback_menu',
+                ] );
+                ?>
+            </nav>
+
+            <!-- Hamburger: visible only on mobile/tablet -->
+            <button class="menu-toggle"
+                    aria-controls="primary-navigation"
+                    aria-expanded="false"
+                    aria-label="<?php esc_attr_e( 'Open menu', 'guardian-news' ); ?>">
+                <span class="menu-toggle-bar"></span>
+                <span class="menu-toggle-bar"></span>
+                <span class="menu-toggle-bar"></span>
+            </button>
         </div>
     </div>
-</header>
 
-<!-- ===== PRIMARY NAVIGATION ===== -->
-<div class="site-nav-wrapper" role="navigation" aria-label="<?php esc_attr_e( 'Primary menu', 'guardian-news' ); ?>">
-    <div class="container">
-        <nav class="primary-navigation" id="primary-navigation">
+    <!-- ===== SUB NAVIGATION ===== -->
+    <?php if ( has_nav_menu( 'secondary' ) ) : ?>
+    <div class="sub-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Section menu', 'guardian-news' ); ?>">
+        <div class="container">
             <?php
             wp_nav_menu( [
-                'theme_location' => 'primary',
-                'menu_class'     => '',
+                'theme_location' => 'secondary',
                 'container'      => false,
                 'walker'         => new Guardian_Nav_Walker(),
-                'fallback_cb'    => 'guardian_fallback_menu',
+                'fallback_cb'    => false,
             ] );
             ?>
-        </nav>
-
-        <!-- Hamburger: visible only on mobile/tablet -->
-        <button class="menu-toggle"
-                aria-controls="primary-navigation"
-                aria-expanded="false"
-                aria-label="<?php esc_attr_e( 'Open menu', 'guardian-news' ); ?>">
-            <span class="menu-toggle-bar"></span>
-            <span class="menu-toggle-bar"></span>
-            <span class="menu-toggle-bar"></span>
-        </button>
+        </div>
     </div>
-</div>
+    <?php endif; ?>
 
-<!-- ===== SUB NAVIGATION ===== -->
-<?php if ( has_nav_menu( 'secondary' ) ) : ?>
-<div class="sub-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Section menu', 'guardian-news' ); ?>">
-    <div class="container">
-        <?php
-        wp_nav_menu( [
-            'theme_location' => 'secondary',
-            'container'      => false,
-            'walker'         => new Guardian_Nav_Walker(),
-            'fallback_cb'    => false,
-        ] );
-        ?>
-    </div>
-</div>
-<?php endif; ?>
+</div><!-- .site-header-wrapper -->
 
 <!-- ===== MAIN ===== -->
 <div id="main-content" class="site-main">

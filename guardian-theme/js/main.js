@@ -5,156 +5,53 @@
     'use strict';
 
     // =========================================================
-    // STICKY HEADER
+    // SET --sticky-top CSS VARIABLE
+    // The sidebar-sticky CSS uses:  top: calc(var(--sticky-top) + 16px)
+    // We measure the sticky header wrapper height and write it to :root
+    // so the sidebar sticks right below the header.
     // =========================================================
-    var siteHeader     = document.querySelector( '.site-header' );
-    var siteNavWrapper = document.querySelector( '.site-nav-wrapper' );
-    var headerHeight   = 0;
-
-    function calcHeaderHeight() {
-        headerHeight = siteHeader ? siteHeader.offsetHeight : 0;
+    function updateStickyTop() {
+        var wrapper = document.querySelector( '.site-header-wrapper' );
+        var h       = wrapper ? wrapper.offsetHeight : 0;
+        document.documentElement.style.setProperty( '--sticky-top', h + 'px' );
     }
-    calcHeaderHeight();
-
-    // =========================================================
-    // STICKY SIDEBAR
-    // The outer .sidebar stays in the CSS grid (never repositioned).
-    // Only the inner .sidebar-sticky div is moved, so the grid
-    // column width is always preserved and nothing overlaps.
-    // =========================================================
-    var sidebarOuter  = null;   // <aside class="sidebar">  — stays in grid
-    var sidebarInner  = null;   // <div class="sidebar-sticky"> — gets fixed
-    var sidebarEnabled = false;
-
-    function initStickySidebar() {
-        sidebarOuter = document.querySelector( '.sidebar' );
-        sidebarInner = document.querySelector( '.sidebar-sticky' );
-
-        if ( ! sidebarOuter || ! sidebarInner ) return;
-
-        // Reset inner to normal flow before measuring
-        sidebarInner.style.position = '';
-        sidebarInner.style.top      = '';
-        sidebarInner.style.width    = '';
-        sidebarInner.style.left     = '';
-
-        // Only on desktop (matches the CSS 900px breakpoint)
-        if ( window.innerWidth <= 900 ) {
-            sidebarEnabled = false;
-            return;
-        }
-
-        sidebarEnabled = true;
-        tickSidebar( window.scrollY );
-    }
-
-    function tickSidebar( scrollY ) {
-        if ( ! sidebarEnabled || ! sidebarOuter || ! sidebarInner ) return;
-
-        var navHeight    = siteNavWrapper ? siteNavWrapper.offsetHeight : 0;
-        var gap          = 16;                          // px gap from viewport top
-        var offsetTop    = navHeight + gap;
-
-        var outerRect    = sidebarOuter.getBoundingClientRect();
-        var innerHeight  = sidebarInner.offsetHeight;
-        var outerBottom  = outerRect.bottom + scrollY; // absolute doc position
-
-        // When the bottom of the outer column would be above the inner widget bottom
-        var stickStart   = outerRect.top + scrollY;    // abs doc top of sidebar column
-        var stickEnd     = outerBottom - innerHeight;  // abs doc pos where we pin to bottom
-
-        if ( scrollY + offsetTop < stickStart ) {
-            // Above natural position — sit in normal flow
-            sidebarInner.style.position = 'relative';
-            sidebarInner.style.top      = '';
-            sidebarInner.style.width    = '';
-            sidebarInner.style.left     = '';
-
-        } else if ( scrollY + offsetTop >= stickEnd ) {
-            // Past bottom boundary — pin to bottom of outer column
-            sidebarInner.style.position = 'absolute';
-            sidebarInner.style.top      = ( stickEnd - stickStart ) + 'px';
-            sidebarInner.style.width    = outerRect.width + 'px';
-            sidebarInner.style.left     = '0';
-            // Outer needs relative so absolute child is scoped to it
-            sidebarOuter.style.position = 'relative';
-
-        } else {
-            // In sticky zone — fix to viewport
-            sidebarInner.style.position = 'fixed';
-            sidebarInner.style.top      = offsetTop + 'px';
-            sidebarInner.style.width    = outerRect.width + 'px';
-            sidebarInner.style.left     = outerRect.left + 'px';
-            sidebarOuter.style.position = 'relative';
-        }
-    }
-
-    // =========================================================
-    // SCROLL HANDLER (single rAF loop for both nav + sidebar)
-    // =========================================================
-    var ticking = false;
-
-    function onScroll() {
-        var scrollY = window.scrollY;
-
-        // Sticky nav
-        if ( siteNavWrapper ) {
-            if ( scrollY > headerHeight ) {
-                siteNavWrapper.classList.add( 'nav-sticky' );
-            } else {
-                siteNavWrapper.classList.remove( 'nav-sticky' );
-            }
-        }
-
-        // Sticky sidebar inner
-        tickSidebar( scrollY );
-
-        ticking = false;
-    }
-
-    window.addEventListener( 'scroll', function () {
-        if ( ! ticking ) {
-            window.requestAnimationFrame( onScroll );
-            ticking = true;
-        }
-    }, { passive: true } );
-
-    // Re-init on resize
-    window.addEventListener( 'resize', function () {
-        calcHeaderHeight();
-        initStickySidebar();
-    } );
 
     // =========================================================
     // HAMBURGER MENU TOGGLE
     // =========================================================
-    document.addEventListener( 'DOMContentLoaded', function () {
-        calcHeaderHeight();
-        setTimeout( initStickySidebar, 120 );
-
+    function initHamburger() {
         var toggle  = document.querySelector( '.menu-toggle' );
         var navMenu = document.getElementById( 'primary-navigation' );
+        if ( ! toggle || ! navMenu ) return;
 
-        if ( toggle && navMenu ) {
-            toggle.addEventListener( 'click', function () {
-                var isOpen = navMenu.classList.toggle( 'nav-open' );
-                toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
-                toggle.setAttribute( 'aria-label',
-                    isOpen ? 'Close menu' : 'Open menu' );
-            } );
+        toggle.addEventListener( 'click', function () {
+            var isOpen = navMenu.classList.toggle( 'nav-open' );
+            toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+            toggle.setAttribute( 'aria-label', isOpen ? 'Close menu' : 'Open menu' );
+        } );
 
-            // Close menu when a link is tapped
-            navMenu.querySelectorAll( 'a' ).forEach( function ( link ) {
-                link.addEventListener( 'click', function () {
-                    navMenu.classList.remove( 'nav-open' );
-                    toggle.setAttribute( 'aria-expanded', 'false' );
-                    toggle.setAttribute( 'aria-label', 'Open menu' );
-                } );
+        navMenu.querySelectorAll( 'a' ).forEach( function ( link ) {
+            link.addEventListener( 'click', function () {
+                navMenu.classList.remove( 'nav-open' );
+                toggle.setAttribute( 'aria-expanded', 'false' );
+                toggle.setAttribute( 'aria-label', 'Open menu' );
             } );
-        }
+        } );
+    }
+
+    // =========================================================
+    // INIT
+    // =========================================================
+    document.addEventListener( 'DOMContentLoaded', function () {
+        updateStickyTop();
+        initHamburger();
     } );
 
-    window.addEventListener( 'load', initStickySidebar );
+    // Re-measure after all images/fonts load (header height may change)
+    window.addEventListener( 'load', updateStickyTop );
+
+    // Re-measure on resize (e.g. orientation change on mobile)
+    window.addEventListener( 'resize', updateStickyTop );
 
     // =========================================================
     // RELATIVE TIMESTAMPS — refresh every 60 s
@@ -163,9 +60,7 @@
         document.querySelectorAll( 'time[datetime]' ).forEach( function ( el ) {
             var date = new Date( el.getAttribute( 'datetime' ) );
             if ( isNaN( date ) ) return;
-
             var diff = Math.floor( ( Date.now() - date.getTime() ) / 1000 );
-
             if ( diff < 60 ) {
                 el.textContent = 'Just now';
             } else if ( diff < 3600 ) {

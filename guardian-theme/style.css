@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 2.4.0
+Version: 2.5.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -807,7 +807,14 @@ ul, ol { list-style: none; }
 .sidebar {
     border-left: 1px solid var(--color-border);
     padding-left: 20px;
-    /* position/top controlled by JS sticky sidebar in main.js */
+    /* Outer column stays in the grid — never repositioned */
+}
+
+/* Inner wrapper scrolls with the page and sticks below the header.
+   --sticky-top is set in px by JS after measuring .site-header-wrapper */
+.sidebar-sticky {
+    position: sticky;
+    top: calc(var(--sticky-top, 80px) + 16px);
 }
 
 .sidebar-widget {
@@ -1026,16 +1033,17 @@ ul, ol { list-style: none; }
 .section--business   { color: var(--sport-300); }
 
 /* ============================================================
-   STICKY NAVIGATION
+   STICKY HEADER WRAPPER — logo + nav stick together
    ============================================================ */
-.nav-sticky {
-    position: fixed;
+.site-header-wrapper {
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
 }
+
+/* Keep old .nav-sticky class harmless (JS still adds it but wrapper handles sticking) */
+.nav-sticky { box-shadow: none; }
 
 /* ============================================================
    HAMBURGER BUTTON — hidden on desktop, shown on mobile/tablet
@@ -1099,7 +1107,7 @@ ul, ol { list-style: none; }
     /* ── Header ── */
     .site-header { padding: 10px 0; }
 
-    .custom-logo { max-height: 64px; }  /* scale logo down for tablet */
+    .custom-logo { max-height: 83px; }  /* 64px × 1.30 */
 
     /* ── Hamburger ── */
     .menu-toggle { display: flex; }
@@ -1213,7 +1221,7 @@ ul, ol { list-style: none; }
     html { font-size: 14px; }
 
     /* ── Header ── */
-    .custom-logo { max-height: 48px; }
+    .custom-logo { max-height: 62px; }  /* 48px × 1.30 */
 
     /* ── Hero headline ── */
     .hero-section h2 {

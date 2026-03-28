@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'GUARDIAN_VERSION', '2.4.0' );
+define( 'GUARDIAN_VERSION', '2.5.0' );
 define( 'GUARDIAN_DIR', get_template_directory() );
 define( 'GUARDIAN_URI', get_template_directory_uri() );
 
