@@ -81,10 +81,20 @@ function guardian_enqueue_assets() {
         GUARDIAN_VERSION
     );
 
-    // Google Fonts (Georgia fallback with display swap)
+    /*
+     * Google Fonts that best approximate Guardian's proprietary typefaces:
+     *   GH Guardian Headline  → Playfair Display (Egyptian/serif, high-contrast)
+     *   GuardianTextEgyptian  → Lora (body serif, comfortable reading)
+     *   GuardianTextSans      → Source Sans 3 (neutral humanist sans)
+     * These are mapped via CSS font-family aliases in style.css.
+     */
     wp_enqueue_style(
         'guardian-fonts',
-        'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?'
+            . 'family=Playfair+Display:ital,wght@0,700;0,900;1,700&'
+            . 'family=Lora:ital,wght@0,400;0,700;1,400&'
+            . 'family=Source+Sans+3:wght@400;600;700&'
+            . 'display=swap',
         [],
         null
     );
@@ -187,19 +197,30 @@ function guardian_relative_time( $timestamp ) {
 // ============================================================
 
 function guardian_get_section_color( $category_slug = '' ) {
+    // Exact Guardian Source palette tokens (from @guardian/source-foundations)
     $colors = [
-        'world'         => '#990000',
-        'us-news'       => '#004b7a',
-        'uk-news'       => '#004b7a',
-        'politics'      => '#333399',
-        'environment'   => '#4B7F52',
-        'science'       => '#990000',
-        'technology'    => '#052962',
-        'business'      => '#005689',
-        'sport'         => '#003580',
-        'culture'       => '#7D0068',
-        'lifestyle'     => '#BB3B80',
-        'opinion'       => '#e05E00',
+        'news'          => '#C70000', // news-400
+        'world'         => '#C70000', // news-400
+        'us-news'       => '#052962', // brand-400
+        'uk-news'       => '#052962', // brand-400
+        'politics'      => '#052962', // brand-400
+        'environment'   => '#185E36', // green-300
+        'science'       => '#052962', // brand-400
+        'technology'    => '#052962', // brand-400
+        'business'      => '#005689', // sport-300
+        'money'         => '#005689', // sport-300
+        'sport'         => '#005689', // sport-300
+        'football'      => '#005689', // sport-300
+        'culture'       => '#6B5840', // culture-300
+        'film'          => '#6B5840', // culture-300
+        'music'         => '#6B5840', // culture-300
+        'books'         => '#6B5840', // culture-300
+        'lifestyle'     => '#7D0068', // lifestyle-300
+        'fashion'       => '#BB3B80', // lifestyle-400
+        'food'          => '#7D0068', // lifestyle-300
+        'opinion'       => '#E05E00', // opinion-450
+        'global-development' => '#185E36', // green-300
+        'society'       => '#052962', // brand-400
     ];
     return isset( $colors[ $category_slug ] ) ? $colors[ $category_slug ] : '#052962';
 }
