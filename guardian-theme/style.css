@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 2.6.0
+Version: 2.7.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -721,8 +721,11 @@ ul, ol { list-style: none; }
     margin-bottom: 14px;
 }
 
-/* Byline — sans, small, brand blue */
+/* Byline — avatar + name side by side */
 .article-byline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--font-sans);
     font-size: var(--text-sans-m);
     font-weight: 700;
@@ -730,8 +733,17 @@ ul, ol { list-style: none; }
     margin-bottom: 2px;
 }
 
-.article-byline a { color: inherit; }
-.article-byline a:hover { text-decoration: underline; }
+.byline-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--color-border);
+}
+
+.byline-name a { color: var(--brand-400); }
+.byline-name a:hover { text-decoration: underline; }
 
 /* Date — sans, xs, muted */
 .article-date {

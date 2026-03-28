@@ -39,9 +39,10 @@ get_header();
             <p class="article-standfirst"><?php echo esc_html( get_the_excerpt() ); ?></p>
             <?php endif; ?>
 
-            <p class="article-byline">
-                <?php the_author_posts_link(); ?>
-            </p>
+            <div class="article-byline">
+                <?php echo get_avatar( get_the_author_meta( 'ID' ), 32, '', get_the_author(), [ 'class' => 'byline-avatar' ] ); ?>
+                <span class="byline-name"><?php the_author_posts_link(); ?></span>
+            </div>
 
             <p class="article-date">
                 <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
