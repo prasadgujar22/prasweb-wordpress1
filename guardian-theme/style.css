@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 2.3.0
+Version: 2.4.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -1081,14 +1081,28 @@ ul, ol { list-style: none; }
 }
 
 /* ============================================================
-   MOBILE NAV
+   RESPONSIVE — TABLET  (≤ 900px)
    ============================================================ */
 @media (max-width: 900px) {
 
-    /* Show hamburger on mobile/tablet */
-    .menu-toggle {
-        display: flex;
+    /* ── Global ── */
+    :root {
+        --gutter: 16px;
     }
+
+    html { font-size: 15px; } /* slightly scale down base */
+
+    /* Prevent horizontal overflow */
+    body { overflow-x: hidden; }
+    .container { padding: 0 var(--gutter); }
+
+    /* ── Header ── */
+    .site-header { padding: 10px 0; }
+
+    .custom-logo { max-height: 64px; }  /* scale logo down for tablet */
+
+    /* ── Hamburger ── */
+    .menu-toggle { display: flex; }
 
     .site-nav-wrapper .container {
         flex-wrap: wrap;
@@ -1097,18 +1111,16 @@ ul, ol { list-style: none; }
         padding-bottom: 4px;
     }
 
-    /* Nav collapsed by default, slides open */
+    /* Nav collapsed by default */
     .primary-navigation {
         width: 100%;
-        order: 3;              /* pushes below the button row */
+        order: 3;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.28s ease;
     }
 
-    .primary-navigation.nav-open {
-        max-height: 400px;
-    }
+    .primary-navigation.nav-open { max-height: 500px; }
 
     .primary-navigation ul {
         flex-direction: column;
@@ -1122,12 +1134,38 @@ ul, ol { list-style: none; }
         font-size: var(--text-sans-m);
     }
 
-    /* Remove active underline on mobile (no room) */
     .primary-navigation ul li.current-menu-item > a::after,
-    .primary-navigation ul li.current_page_item > a::after {
-        display: none;
+    .primary-navigation ul li.current_page_item > a::after { display: none; }
+
+    /* ── Layout ── */
+    .content-area {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
 
+    /* ── Hero ── */
+    .hero-section h2 {
+        font-size: var(--text-headline-l);   /* 28px fixed on tablet */
+    }
+
+    /* ── Article cards: 2 columns ── */
+    .articles-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Reset border logic for 2-col grid */
+    .article-card + .article-card { border-left: none; padding-left: 0; }
+    .article-card:nth-child(odd)  { padding-right: 10px; border-right: 1px solid var(--color-border); }
+    .article-card:nth-child(even) { padding-left: 10px; }
+
+    /* ── Single article ── */
+    .single-article { max-width: 100%; }
+
+    .article-title {
+        font-size: var(--text-headline-l);   /* 28px */
+    }
+
+    .article-standfirst { font-size: var(--text-body-m); }
+
+    /* ── Sidebar ── */
     .sidebar {
         border-left: none;
         padding-left: 0;
@@ -1135,9 +1173,127 @@ ul, ol { list-style: none; }
         padding-top: 20px;
     }
 
+    /* ── Footer ── */
     .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    /* ── WordPress content tables: scroll horizontally ── */
+    .article-content table,
+    .entry-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        font-size: var(--text-sans-s);
+    }
+
+    /* ── WordPress blocks ── */
+    .wp-block-table { overflow-x: auto; }
+    .wp-block-image img,
+    .wp-block-cover  { max-width: 100%; height: auto; }
+
+    /* ── Code blocks ── */
+    pre, code {
+        font-size: 0.8rem;
+        overflow-x: auto;
+        white-space: pre;
+        word-break: normal;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE  (≤ 600px)
+   ============================================================ */
+@media (max-width: 600px) {
+
+    :root { --gutter: 12px; }
+
+    html { font-size: 14px; }
+
+    /* ── Header ── */
+    .custom-logo { max-height: 48px; }
+
+    /* ── Hero headline ── */
+    .hero-section h2 {
+        font-size: var(--text-headline-m);   /* 24px */
+        line-height: var(--lh-regular);
+    }
+
+    .hero-standfirst { font-size: var(--text-body-s); }  /* 14px */
+
+    /* ── Article cards: single column ── */
+    .articles-grid { grid-template-columns: 1fr; gap: 0; }
+
+    .article-card,
+    .article-card + .article-card {
+        border-left: none;
+        border-right: none;
+        padding: 12px 0;
+    }
+
+    .article-card-image img { height: 200px; }
+
+    /* ── Single article ── */
+    .article-title {
+        font-size: var(--text-headline-m);   /* 24px */
+        line-height: var(--lh-regular);
+    }
+
+    .article-standfirst {
+        font-size: var(--text-body-s);
+        line-height: var(--lh-regular);
+    }
+
+    .article-content {
+        font-size: var(--text-body-m);       /* 15px — easier on small screens */
+        line-height: 1.6;
+    }
+
+    .article-content h2 { font-size: var(--text-headline-s); }  /* 20px */
+    .article-content h3 { font-size: var(--text-headline-xs); } /* 17px */
+
+    .article-content blockquote {
+        padding: 8px 14px;
+        font-size: var(--text-body-m);
+    }
+
+    /* ── Section header ── */
+    .section-title { font-size: var(--text-headline-s); }       /* 20px */
+
+    /* ── Date bar ── */
+    .date-edition-header { flex-wrap: wrap; gap: 6px; }
+
+    /* ── Sidebar widget titles ── */
+    .sidebar-widget-title { font-size: var(--text-headline-xs); }
+
+    /* ── Footer ── */
+    .site-footer { padding: 20px 0 14px; }
+
+    /* ── Tables ── */
+    .article-content table,
+    .entry-content table {
+        font-size: 0.75rem;
+    }
+
+    /* ── Images always full width ── */
+    img { max-width: 100%; height: auto; }
+
+    /* ── No horizontal scroll on page ── */
+    .site-main,
+    .content-area,
+    .article-content {
+        overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* ── Long URLs/strings in article body ── */
+    .article-content a,
+    .article-content p {
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 }
 
