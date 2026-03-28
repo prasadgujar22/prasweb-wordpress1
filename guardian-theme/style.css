@@ -297,7 +297,7 @@ ul, ol { list-style: none; }
 .site-header .container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-bottom: 10px;
 }
 
@@ -306,7 +306,7 @@ ul, ol { list-style: none; }
 /* The Guardian wordmark — large, bold, white, serif (Guardian Headline font) */
 .site-title {
     font-family: var(--font-headline);
-    font-size: clamp(2.2rem, 7vw, 4.375rem); /* up to 70px — titlepiece scale */
+    font-size: clamp(1.6rem, 4vw, 2.75rem); /* reduced from 70px max to ~44px */
     font-weight: 700;
     color: var(--neutral-100);
     letter-spacing: -0.02em;
