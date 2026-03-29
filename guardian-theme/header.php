@@ -5,20 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <?php wp_head(); ?>
-    <!-- Critical mobile overflow fix — inline so cache cannot suppress it -->
+    <!-- Critical overflow fix — inline to bypass page cache -->
     <style>
+    /* Always: stop the page scrolling sideways */
     html,body{max-width:100%!important;overflow-x:hidden!important}
-    .site-main,.content-area,.main-column,.single-article,
-    .article-content,.entry-content,.wp-block-group,.wp-block-cover,
-    .container{max-width:100%!important;overflow-x:hidden!important;
-    word-wrap:break-word!important;overflow-wrap:break-word!important}
-    pre,code{max-width:100%!important;overflow-x:auto!important;
-    white-space:pre!important;word-wrap:normal!important;overflow-wrap:normal!important}
+
+    /* Always: wide child elements scroll internally, not the page */
+    pre{max-width:100%!important;overflow-x:auto!important;
+        white-space:pre!important;word-wrap:normal!important}
+    code{word-break:break-word!important;overflow-wrap:break-word!important}
     .article-content table,.entry-content table,
-    figure.wp-block-table,table{display:block!important;
-    overflow-x:auto!important;max-width:100%!important;
-    -webkit-overflow-scrolling:touch}
+    figure.wp-block-table{display:block!important;
+        overflow-x:auto!important;max-width:100%!important;
+        -webkit-overflow-scrolling:touch}
     img,iframe,embed,object{max-width:100%!important}
+
+    /* Mobile only: constrain text containers */
+    @media(max-width:900px){
+        .site-main,.content-area,.main-column,.single-article,
+        .article-content,.entry-content,.container{
+            max-width:100%!important;overflow-x:hidden!important;
+            word-wrap:break-word!important;overflow-wrap:break-word!important}
+    }
     </style>
 </head>
 
