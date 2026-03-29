@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <?php wp_head(); ?>
+    <!-- Critical mobile overflow fix — inline so cache cannot suppress it -->
+    <style>
+    html,body{max-width:100%!important;overflow-x:hidden!important}
+    .site-main,.content-area,.main-column,.single-article,
+    .article-content,.entry-content,.wp-block-group,.wp-block-cover,
+    .container{max-width:100%!important;overflow-x:hidden!important;
+    word-wrap:break-word!important;overflow-wrap:break-word!important}
+    pre,code{max-width:100%!important;overflow-x:auto!important;
+    white-space:pre!important;word-wrap:normal!important;overflow-wrap:normal!important}
+    .article-content table,.entry-content table,
+    figure.wp-block-table,table{display:block!important;
+    overflow-x:auto!important;max-width:100%!important;
+    -webkit-overflow-scrolling:touch}
+    img,iframe,embed,object{max-width:100%!important}
+    </style>
 </head>
 
 <body <?php body_class(); ?>>
