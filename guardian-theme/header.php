@@ -7,8 +7,9 @@
     <?php wp_head(); ?>
     <!-- Critical overflow fix — inline to bypass page cache -->
     <style>
-    /* Always: stop the page scrolling sideways */
-    html,body{max-width:100%!important;overflow-x:hidden!important}
+    /* clip stops horizontal scroll without creating a scroll container,
+       so position:sticky on .site-header-wrapper keeps working */
+    html,body{max-width:100%!important;overflow-x:clip!important}
 
     /* Always: wide child elements scroll internally, not the page */
     pre{max-width:100%!important;overflow-x:auto!important;
@@ -24,7 +25,7 @@
     @media(max-width:900px){
         .site-main,.content-area,.main-column,.single-article,
         .article-content,.entry-content,.container{
-            max-width:100%!important;overflow-x:hidden!important;
+            max-width:100%!important;overflow-x:clip!important;
             word-wrap:break-word!important;overflow-wrap:break-word!important}
     }
     </style>

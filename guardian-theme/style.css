@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 3.0.0
+Version: 3.1.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -266,10 +266,11 @@ img {
    pushing the page wider than the viewport and clipping text.
    ============================================================ */
 
-/* Stop the page from ever scrolling horizontally */
+/* overflow-x:clip stops horizontal scroll without creating a scroll
+   container — unlike hidden, it does NOT break position:sticky */
 html, body {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Code blocks: scroll internally rather than break layout */
@@ -1487,7 +1488,7 @@ ul, ol { list-style: none; }
     .site-main,
     .content-area,
     .article-content {
-        overflow-x: hidden;
+        overflow-x: clip;
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
