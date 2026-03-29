@@ -35,6 +35,13 @@
 
         /* Sidebar flows below article on mobile — sticky must be off */
         .sidebar-sticky{position:static!important;top:auto!important}
+
+        /* Section label: no left-border on stacked cards (creates continuous line in dark mode) */
+        .article-card .article-section-label,
+        .article-card-section{
+            border-left:none!important;padding-left:0!important;
+            border-top:3px solid currentColor!important;
+            padding-top:4px!important;display:inline-block!important}
     }
     </style>
 </head>
