@@ -21,12 +21,18 @@
         -webkit-overflow-scrolling:touch}
     img,iframe,embed,object{max-width:100%!important}
 
-    /* Mobile only: constrain text containers */
+    /* Mobile only: constrain text containers + disable sidebar sticky */
     @media(max-width:900px){
         .site-main,.content-area,.main-column,.single-article,
         .article-content,.entry-content,.container{
             max-width:100%!important;overflow-x:clip!important;
             word-wrap:break-word!important;overflow-wrap:break-word!important}
+
+        /* Sidebar flows below article on mobile — sticky must be off */
+        .sidebar-sticky{position:static!important;top:auto!important}
+
+        /* Social share plugin buttons — prevent fixed/absolute overflow */
+        .content-area,.main-column{position:relative!important}
     }
     </style>
 </head>
