@@ -11,6 +11,11 @@
        so position:sticky on .site-header-wrapper keeps working */
     html,body{max-width:100%!important;overflow-x:clip!important}
 
+    /* CSS Grid: children default to min-width:auto which lets them grow
+       wider than their track when content (tables/code) is wide.
+       min-width:0 lets tracks shrink; inner overflow:auto then works. */
+    .content-area>*{min-width:0!important}
+
     /* Always: wide child elements scroll internally, not the page */
     pre{max-width:100%!important;overflow-x:auto!important;
         white-space:pre!important;word-wrap:normal!important}
@@ -30,9 +35,6 @@
 
         /* Sidebar flows below article on mobile — sticky must be off */
         .sidebar-sticky{position:static!important;top:auto!important}
-
-        /* Social share plugin buttons — prevent fixed/absolute overflow */
-        .content-area,.main-column{position:relative!important}
     }
     </style>
 </head>
