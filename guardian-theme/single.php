@@ -40,7 +40,7 @@ get_header();
             <?php endif; ?>
 
             <div class="article-byline">
-                <?php echo get_avatar( get_the_author_meta( 'ID' ), 32, '', get_the_author(), [ 'class' => 'byline-avatar' ] ); ?>
+                <?php echo get_avatar( get_the_author_meta( 'ID' ), 42, '', get_the_author(), [ 'class' => 'byline-avatar' ] ); ?>
                 <div class="byline-meta">
                     <span class="byline-name"><?php the_author_posts_link(); ?></span>
                     <time class="byline-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
