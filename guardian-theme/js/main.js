@@ -161,7 +161,7 @@
                 el.textContent = 'Just now';
             } else if ( diff < 3600 ) {
                 var m = Math.round( diff / 60 );
-                el.textContent = m + ' min' + ( m > 1 ? 's' ) + ' ago';
+                el.textContent = m + ' min' + ( m > 1 ? 's' : '' ) + ' ago';
             } else if ( diff < 86400 ) {
                 var h = Math.round( diff / 3600 );
                 el.textContent = h + ' hour' + ( h > 1 ? 's' : '' ) + ' ago';
