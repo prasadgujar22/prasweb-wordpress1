@@ -21,14 +21,18 @@
      wins the cascade regardless of what the plugin enqueues -->
 <style>
 .article-card,
+.sidebar,
+.sidebar-sticky,
 .sidebar-widget,
 .widget,
-.sidebar-sticky > *,
-.sidebar > *{
+.sidebar *,
+.sidebar-sticky *{
     border-left-width:0!important;
     border-right-width:0!important;
     border-bottom-width:0!important;
 }
+/* Restore only the top divider we actually want on widgets */
+.sidebar-widget{border-top:3px solid #052962!important}
 </style>
 </body>
 </html>
