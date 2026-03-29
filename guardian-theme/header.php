@@ -16,9 +16,11 @@
        min-width:0 lets tracks shrink; inner overflow:auto then works. */
     .content-area>*{min-width:0!important}
 
-    /* Strip borders the dark mode plugin injects around article cards.
-       We only want the top divider line between cards, nothing else. */
-    .article-card{
+    /* Strip borders the dark mode plugin injects around article cards
+       and sidebar widgets — only top dividers should be visible. */
+    .article-card,
+    .sidebar-widget,
+    .widget{
         border-left:0!important;
         border-right:0!important;
         border-bottom:0!important}
