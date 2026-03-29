@@ -4,7 +4,7 @@ Theme URI: https://github.com/prasadgujar22/prasweb-wordpress1
 Author: PrasWeb
 Author URI: https://github.com/prasadgujar22
 Description: A WordPress theme inspired by The Guardian newspaper, using the exact Guardian Source design system tokens — fonts, colours, and typography scale.
-Version: 3.1.4
+Version: 3.1.5
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 8.0
@@ -674,6 +674,9 @@ ul, ol { list-style: none; }
 
 .article-card {
     border-top: 1px solid var(--color-border);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
     padding: 10px 12px 12px 0;
 }
 
@@ -1451,16 +1454,9 @@ ul, ol { list-style: none; }
         padding: 12px 0;
     }
 
-    /* Section label: swap left-border for top-border on mobile so
-       stacked cards don't produce a continuous vertical coloured line */
-    .article-card .article-section-label,
-    .article-card-section {
-        border-left: none;
-        padding-left: 0;
-        border-top: 3px solid currentColor;
-        padding-top: 4px;
-        display: inline-block;
-    }
+    /* Section label: strip any residual border so stacked single-column
+       cards don't produce a continuous vertical line */
+    .article-card-section { border: none; padding-left: 0; }
 
     .article-card-image img { height: 200px; }
 
