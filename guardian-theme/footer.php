@@ -17,5 +17,18 @@
 </footer>
 
 <?php wp_footer(); ?>
+<!-- Override dark-mode plugin borders — placed after wp_footer() so it
+     wins the cascade regardless of what the plugin enqueues -->
+<style>
+.article-card,
+.sidebar-widget,
+.widget,
+.sidebar-sticky > *,
+.sidebar > *{
+    border-left-width:0!important;
+    border-right-width:0!important;
+    border-bottom-width:0!important;
+}
+</style>
 </body>
 </html>
