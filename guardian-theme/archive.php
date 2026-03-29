@@ -31,8 +31,8 @@ get_header();
 
         <?php
         the_posts_navigation( [
-            'prev_text' => '&larr; ' . __( 'Older stories', 'guardian-news' ),
-            'next_text' => __( 'Newer stories', 'guardian-news' ) . ' &rarr;',
+            'prev_text' => '&larr; ' . __( 'Older posts', 'guardian-news' ),
+            'next_text' => __( 'Newer posts', 'guardian-news' ) . ' &rarr;',
         ] );
         ?>
 
