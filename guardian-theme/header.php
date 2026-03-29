@@ -3,6 +3,9 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Tell Safari/iOS not to auto-apply dark-mode borders/colours.
+         The dark-mode toggle plugin manages theming instead. -->
+    <meta name="color-scheme" content="light">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <?php wp_head(); ?>
     <!-- Critical overflow fix — inline to bypass page cache -->
