@@ -102,46 +102,23 @@
     // The dark mode plugin injects border-left/right/bottom via inline
     // styles on sidebar widgets and article cards. CSS !important cannot
     // override JS inline styles, so we remove them here after load.
+    // No MutationObserver — that caused an infinite loop.
     // =========================================================
-    var BORDER_SELECTORS = [
-        '.article-card',
-        '.sidebar',
-        '.sidebar-sticky',
-        '.sidebar-widget',
-        '.widget',
-        '.sidebar *'
-    ].join( ',' );
-
     function stripPluginBorders() {
-        document.querySelectorAll( BORDER_SELECTORS ).forEach( function ( el ) {
-            el.style.removeProperty( 'border-left' );
-            el.style.removeProperty( 'border-right' );
-            el.style.removeProperty( 'border-bottom' );
-            el.style.removeProperty( 'border' );
-            // Re-apply only our top border for widgets
-            if ( el.classList.contains( 'sidebar-widget' ) ) {
-                el.style.setProperty( 'border-top', '3px solid #052962', 'important' );
-            }
-        } );
-    }
-
-    // Run once on load, then watch for the dark-mode plugin toggling
-    function initBorderStrip() {
-        stripPluginBorders();
-        // MutationObserver catches when the plugin re-adds borders on toggle
-        var observer = new MutationObserver( function ( mutations ) {
-            var relevant = mutations.some( function ( m ) {
-                return m.type === 'attributes' && m.attributeName === 'style' &&
-                    ( m.target.matches( '.sidebar-widget' ) ||
-                      m.target.matches( '.article-card' ) ||
-                      m.target.matches( '.sidebar' ) );
+        var selectors = [
+            '.article-card',
+            '.sidebar',
+            '.sidebar-sticky',
+            '.sidebar-widget',
+            '.widget'
+        ];
+        selectors.forEach( function ( sel ) {
+            document.querySelectorAll( sel ).forEach( function ( el ) {
+                el.style.removeProperty( 'border-left' );
+                el.style.removeProperty( 'border-right' );
+                el.style.removeProperty( 'border-bottom' );
+                el.style.removeProperty( 'border' );
             } );
-            if ( relevant ) { stripPluginBorders(); }
-        } );
-        observer.observe( document.body, {
-            attributes: true,
-            attributeFilter: [ 'style' ],
-            subtree: true
         } );
     }
 
@@ -152,17 +129,25 @@
         updateStickyTop();
         initHamburger();
         initSearch();
-        initBorderStrip();
+        stripPluginBorders();
     } );
 
     // Re-measure after all images/fonts load (header height may change)
     window.addEventListener( 'load', function () {
         updateStickyTop();
-        stripPluginBorders(); // run again after everything settles
+        // Run again after load to catch any plugin-applied styles
+        setTimeout( stripPluginBorders, 300 );
     } );
 
     // Re-measure on resize (e.g. orientation change on mobile)
     window.addEventListener( 'resize', updateStickyTop );
+
+    // Re-strip when user clicks the dark-mode toggle button
+    document.addEventListener( 'click', function ( e ) {
+        if ( e.target.closest( '[class*="dark"]' ) || e.target.closest( '[id*="dark"]' ) ) {
+            setTimeout( stripPluginBorders, 150 );
+        }
+    } );
 
     // =========================================================
     // RELATIVE TIMESTAMPS — refresh every 60 s
@@ -176,7 +161,7 @@
                 el.textContent = 'Just now';
             } else if ( diff < 3600 ) {
                 var m = Math.round( diff / 60 );
-                el.textContent = m + ' min' + ( m > 1 ? 's' : '' ) + ' ago';
+                el.textContent = m + ' min' + ( m > 1 ? 's' ) + ' ago';
             } else if ( diff < 86400 ) {
                 var h = Math.round( diff / 3600 );
                 el.textContent = h + ' hour' + ( h > 1 ? 's' : '' ) + ' ago';
