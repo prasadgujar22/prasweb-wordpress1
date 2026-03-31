@@ -96,8 +96,8 @@ get_header();
 
         <?php
         the_post_navigation( [
-            'prev_text' => '<span class="nav-subtitle">' . __( 'Previous story', 'guardian-news' ) . '</span><span class="nav-title">%title</span>',
-            'next_text' => '<span class="nav-subtitle">' . __( 'Next story', 'guardian-news' ) . '</span><span class="nav-title">%title</span>',
+            'prev_text' => '<span class="nav-subtitle">' . __( 'Previous story', 'guardian-news' ) . ': </span><span class="nav-title">%title</span>',
+            'next_text' => '<span class="nav-subtitle">' . __( 'Next story', 'guardian-news' ) . ': </span><span class="nav-title">%title</span>',
         ] );
         ?>
 
